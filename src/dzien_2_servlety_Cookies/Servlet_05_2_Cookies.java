@@ -10,23 +10,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet("/showCookie")
-public class Servlet_01_Get extends HttpServlet {
+@WebServlet("/Servlet_05_2_Cookies")
+public class Servlet_05_2_Cookies extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String cookieValue = request.getParameter("visited");
 		Cookie[] cookies = request.getCookies();
-		String cookieValue = null;
-		try {
-			for(Cookie c : cookies) {
-				if("User".equals(c.getName())) cookieValue = c.getValue();
-			}			
-			response.getWriter().append(cookieValue);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			response.getWriter().append("Nie ma takiego ciasteczka");
-			
+		for(Cookie c : cookies) {
+			if(c.getValue().equals(cookieValue)) {
+				c.setMaxAge(0);
+				response.addCookie(c);
+				response.getWriter().append("Witamy na stronie Servlet_05_2_Cookies");
+			} else {
+				response.sendRedirect("Servlet_05_1_Cookies");
+			}
 		}
 	}
 

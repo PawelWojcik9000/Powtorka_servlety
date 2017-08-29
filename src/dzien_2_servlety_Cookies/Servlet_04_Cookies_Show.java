@@ -10,23 +10,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet("/showCookie")
-public class Servlet_01_Get extends HttpServlet {
+@WebServlet("/Servlet_04_Cookies_Show")
+public class Servlet_04_Cookies_Show extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	
+       
+   
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html;charset=utf-8");
 		Cookie[] cookies = request.getCookies();
-		String cookieValue = null;
+		String cookieVal = null;
 		try {
 			for(Cookie c : cookies) {
-				if("User".equals(c.getName())) cookieValue = c.getValue();
-			}			
-			response.getWriter().append(cookieValue);
-		} catch (Exception e) {
+				response.getWriter().append(c.getName()+"<a href='Servlet_04_Cookies_Del?cookieName="+c.getName()+"'>&nbspUSUN</a><br>");
+			}
+		} catch (NullPointerException e) {
 			// TODO Auto-generated catch block
-			response.getWriter().append("Nie ma takiego ciasteczka");
-			
+			response.getWriter().append("Nie ma zadnych ciasteczek");
 		}
 	}
 
