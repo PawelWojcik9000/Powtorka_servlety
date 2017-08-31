@@ -15,6 +15,7 @@ public class Servlet_06_Cookies extends HttpServlet {
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		response.setContentType("text/html;charset=utf-8");
 		String textColor = request.getParameter("textColor");
 		String backgroundColor = request.getParameter("backgroundColor");
@@ -28,24 +29,26 @@ public class Servlet_06_Cookies extends HttpServlet {
 		
 	}
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
 		response.setContentType("text/html;charset=utf-8");
-		String textColor = request.getParameter("textColor");
-		String backgroundColor = request.getParameter("backgroundColor");		
+		String textColor = null;
+		String backgroundColor = null;
 		Cookie[] cookies = request.getCookies();
-		if(textColor == null && backgroundColor == null && cookies != null) {
-			for(Cookie c : cookies) {
-				if("colorOfText".equals(c.getName())) textColor = c.getValue();
+		for(Cookie c : cookies) {
+			if("colorOfText".equals(c.getName())) {
+				textColor = c.getValue();
 			}
-			for(Cookie c : cookies) {
-				if("colorOfBackground".equals(c.getName())) backgroundColor = c.getValue();
+			if("colorOfBackground".equals(c.getName())) {
+				backgroundColor = c.getValue();
 			}
+		}
+		if(textColor != null && backgroundColor != null) {
 			response.getWriter().append("Zapamiętany w ciasteczku kolor tekstu to: "+textColor+", "
 					+ "oraz tła jako: "+backgroundColor);
-		}
-		if(textColor == null && backgroundColor == null && cookies == null) {
-			response.sendRedirect("index_cookies_6.html");
-		}
+		} else response.sendRedirect("index_cookies_6.html");
+		
+		
+		
 	}
 
 }

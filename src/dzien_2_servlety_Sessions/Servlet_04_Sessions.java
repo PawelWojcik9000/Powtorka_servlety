@@ -33,14 +33,17 @@ public class Servlet_04_Sessions extends HttpServlet {
 		int[] productAmounts = (int[]) sess.getAttribute("productamounts");
 		double[] productPrices = (double[]) sess.getAttribute("productprices");
 		
-		if(sess.getAttribute("productnames") == null) sess.setAttribute("productnames", new String[] { productName });
-		else sess.setAttribute("productnames", addToProductNames(productNames, productName));
+		if(sess.getAttribute("productnames") == null) productNames = new String[] { productName };
+		else productNames = addToProductNames(productNames, productName);
+		sess.setAttribute("productnames", productNames);
 		
-		if(sess.getAttribute("productamounts") == null) sess.setAttribute("productamounts", new int[] { productAmount });
-		else sess.setAttribute("productamounts", addToProductAmounts(productAmounts, productAmount));
+		if(sess.getAttribute("productamounts") == null) productAmounts = new int[] { productAmount };
+		else productAmounts = addToProductAmounts(productAmounts, productAmount);
+		sess.setAttribute("productamounts", productAmounts);
 		
-		if(sess.getAttribute("productprices") == null) sess.setAttribute("productprices", new double[] { productPrice });
-		else sess.setAttribute("productprices", addToProductPrices(productPrices, productPrice));
+		if(sess.getAttribute("productprices") == null) productPrices = new double[] { productPrice };
+		else productPrices = addToProductPrices(productPrices, productPrice);
+		sess.setAttribute("productprices", productPrices);
 		
 		for(int i=0; i<=productNames.length; i++) {
 			response.getWriter().append("Product name: "+productNames[i]+" | Product amount: "+productAmounts[i]+" | Product price: "+productPrices[i]+"<br>");

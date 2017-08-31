@@ -25,6 +25,7 @@ public class Main2 {
 				System.out.println("Zle, nie dostajesz punktu");
 			}
 		}
+		scan.close();
 		System.out.println("Ilosc poprawnych odp: "+count);
 	}
 
